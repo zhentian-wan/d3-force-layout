@@ -60,6 +60,15 @@ export default class SimpleExample extends Component {
             .attr('stroke', '#c2c2c2')
             .attr('stroke-width', d => Math.sqrt(d.value));
 
+        const path = svg
+            .append('g')
+            .selectAll('path')
+            .data(linksData)
+            .enter().append('path')
+            .attr('fill', 'none')
+            .attr('stroke', '#777')
+            .attr('stroke-width', '2px')
+            .attr('class', 'link');
 
         simulation
             .force('link')
@@ -75,6 +84,14 @@ export default class SimpleExample extends Component {
             nodes
                 .attr('cx',(d, i)=> d.x)
                 .attr('cy',(d, i)=> d.y);
+
+            path
+                .attr('d', (d, i) => {
+                    const dx = d.target.x - d.source.x;
+                    const dy = d.target.y - d.source.y;
+                    const dr = Math.sqrt(dx * dx + dy * dy);
+                    return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+                })
         }
 
         function dragstarted(d) {
