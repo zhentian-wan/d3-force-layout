@@ -60,6 +60,21 @@ export default class SimpleExample extends Component {
             .attr('stroke', '#c2c2c2')
             .attr('stroke-width', d => Math.sqrt(d.value));
 
+
+        svg.append('defs').selectAll('marker')
+            .data(['end']).enter()
+            .append('marker')
+            .attr('id', String)
+            .attr('viewBox', '0 -5 10 10')
+            .attr('refX', 10)    
+            .attr('refY', -0.5)    
+            .attr('markerWidth', 6)    
+            .attr('markerHeight', 6)    
+            .attr('orient', 'auto')    
+            .attr('fill', '#404040')    
+            .append('path')  
+            .attr('d', "M0,-5L10,0L0,5");
+
         const path = svg
             .append('g')
             .selectAll('path')
@@ -68,7 +83,10 @@ export default class SimpleExample extends Component {
             .attr('fill', 'none')
             .attr('stroke', '#777')
             .attr('stroke-width', '2px')
-            .attr('class', 'link');
+            .attr('class', 'link')
+            .attr('marker-end', 'url(#end)');
+            
+            
 
         simulation
             .force('link')
