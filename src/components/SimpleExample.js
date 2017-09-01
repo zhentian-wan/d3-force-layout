@@ -65,7 +65,7 @@ export default class SimpleExample extends Component {
             .data(['end']).enter()
             .append('marker')
             .attr('id', String)
-            .attr('viewBox', '0 -5 10 10')
+            .attr('viewBox', '0 -5 10 10') // start at 0, -5, width 10, height 10
             .attr('refX', 10)    
             .attr('refY', -0.5)    
             .attr('markerWidth', 6)    
@@ -73,7 +73,7 @@ export default class SimpleExample extends Component {
             .attr('orient', 'auto')    
             .attr('fill', '#404040')    
             .append('path')  
-            .attr('d', "M0,-5L10,0L0,5");
+            .attr('d', "M0,5L10,0L0,-5"); // 
 
         const path = svg
             .append('g')
