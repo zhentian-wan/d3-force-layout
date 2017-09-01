@@ -8,9 +8,9 @@ const nodesData = [
 ];
 
 const linksData = [
-    {source: 0, target: 1},
-    {source: 1, target: 2},
-    {source: 2, target: 0}
+    {source: 0, target: 1, distance: 200},
+    {source: 1, target: 2, distance: 400},
+    {source: 2, target: 0, distance: 300}
 ];
 
 export default class SimpleExample extends Component {
@@ -73,7 +73,7 @@ export default class SimpleExample extends Component {
             .attr('orient', 'auto')    
             .attr('fill', '#404040')    
             .append('path')  
-            .attr('d', "M0,5L10,0L0,-5"); // 
+            .attr('d', "M0,5L10,0L0,-5");
 
         const path = svg
             .append('g')
@@ -90,7 +90,8 @@ export default class SimpleExample extends Component {
 
         simulation
             .force('link')
-            .distance(height / 2)
+            .distance(d => d.distance) //lineDistance in v3
+            .strength(0.6)
             .links(linksData);
 
         function ticked() {
