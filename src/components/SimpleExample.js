@@ -25,10 +25,10 @@ export default class SimpleExample extends Component {
             .attr('height', height);
         // Create Force layout
         const simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().id(function (d) {
+            .force("link", d3.forceLink().strength(0.9).distance(20).id(function (d) {
                 return d.id;
             }))
-            .force("charge", d3.forceManyBody())
+            .force("charge", d3.forceManyBody().strength(-30))
             .force("center", d3.forceCenter(width / 2, height / 2));
 
 
@@ -91,7 +91,6 @@ export default class SimpleExample extends Component {
         simulation
             .force('link')
             .distance(d => d.distance) //lineDistance in v3
-            .strength(0.6)
             .links(linksData);
 
         function ticked() {
