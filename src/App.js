@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
+
 import './App.css';
 
 import ForceLayoutIntro from './components/ForceLayoutIntro';
 import SimpleExample from './components/SimpleExample';
+import Throns from './components/Throns';
 
 class App extends Component {
     render() {
@@ -13,6 +15,10 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo"/>
                     <h2>Welcome to React</h2>
                 </div>
+                <section>
+                    <h2>Game of throns</h2>
+                    <Throns width={960} height={600}/>
+                </section>
                 <section>
                     <h2>Simple Example</h2>
                     <SimpleExample width={960} height={600}></SimpleExample>
