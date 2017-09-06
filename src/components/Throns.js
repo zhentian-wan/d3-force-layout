@@ -46,6 +46,7 @@ export default class Throns extends Component {
                 .attr('stroke-width', '2px')
                 .attr('class', 'link');
 
+            // Create container for the images
             const svgNodes = svg
                 .append('g')
                 .attr('class', 'nodes')
@@ -53,6 +54,7 @@ export default class Throns extends Component {
                 .data(d3.values(nodes))
                 .enter().append('g');
 
+            // Add image to the nodes
             svgNodes
                 .append('image')
                 .attr('xlink:href', d => `/static/media/${d.name.toLowerCase()}.png`)
