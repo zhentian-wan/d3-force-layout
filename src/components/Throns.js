@@ -24,6 +24,13 @@ export default class Throns extends Component {
                 link.value = +link.value;
             });
 
+            const hovercard = d3.select('body')
+                .append('div')
+                .attr('class', 'hovercard')
+                .style('opacity', 0)
+                .style('width', 400);
+
+
             const simulation = d3.forceSimulation()
                 .force('link', d3.forceLink().id(function (d) {
                     return d.name;
@@ -81,6 +88,14 @@ export default class Throns extends Component {
                 .attr('height', 50)
                 .attr('width', 50);
 
+            svgNodes
+                .append("text")
+                .attr('text-anchor', 'middle')
+                .attr('dy', '.35em')
+                .attr('y', -30)
+                .attr('class', 'label')
+                .text(d => d.name);
+
             // nodes
             simulation
                 .nodes(d3.values(nodes))
@@ -110,6 +125,7 @@ export default class Throns extends Component {
             }
 
             function ticked() {
+
                 // adjust nodes containers position
                 svgNodes
                     .attr('transform', d =>`translate(${d.x},${d.y})`)
@@ -128,6 +144,43 @@ export default class Throns extends Component {
                         const dr = Math.sqrt(dx * dx * curve + dy * dy * curve);
                         return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
                     });
+
+                path.on('mouseover', d => {
+
+                    hovercard
+                        .transition()
+                        .duration(300)
+                        .delay(20)
+                        .style('opacity', 1);
+
+                    const tip =
+                        '<h2>' + d.name + '</h2>' +
+                        '<h4>' + d.source.name + ' attacked ' + d.target.name + ' and the outcome was a ' + d.attacker_outcome + '</h4>' +
+                        '<h3>Details</h3>' +
+                        '<strong> Attacker King: </strong>'+d.attacker_king + '<br/>'+
+                        '<strong> Battle Type: </strong>'+d.battle_type + '<br/>'+
+                        '<strong> Major Death?: </strong>'+d.major_death + '<br/>'+
+                        '<strong> Major Capture?: </strong>'+d.major_capture + '<br/>'+
+                        '<strong> Attacker Size: </strong>'+d.value + '<br/>'+
+                        '<strong> Defender Size: </strong>'+d.defender_size + '<br/>'+
+                        '<strong> Region / Location: </strong>'+d.region+ ' / ' + d.location + '<br/>'+
+                        '<strong> Attacking Commander: </strong>'+d.attacker_commander + '<br/>'+
+                        '<strong> Defending Commander: </strong>'+d.defender_commander;
+
+                    hovercard
+                        .html(tip)
+                        .style('left', d3.event.pageX + 'px')
+                        .style('top', d3.event.pageY + 'px');
+                });
+
+                path.on('mouseout', d => {
+                    hovercard
+                        .transition()
+                        .duration(500)
+                        .style('opacity', 0);
+                });
+
+
             }
         });
 
