@@ -12,7 +12,7 @@ class App extends Component {
         return (
             <div className="App">
                 <section>
-                    <h2>Game of throns</h2>
+                    <h2>Game of thrones</h2>
                     <Throns width={960} height={600}/>
                 </section>
                 <section>
