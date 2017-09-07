@@ -36,15 +36,33 @@ export default class Throns extends Component {
                 .attr('height', height)
                 .attr('width', width);
 
+            // Create arrow pointer
+            svg.append('defs').selectAll('marker')
+                .data(['end']).enter()
+                .append('marker')
+                .attr('id', String)
+                .attr('viewBox', '0 -5 10 10') // start at 0, -5, width 10, height 10
+                .attr('refX', 24)
+                .attr('refY', -1)
+                .attr('markerWidth', 6)
+                .attr('markerHeight', 6)
+                .attr('orient', 'auto')
+                .attr('fill', '#404040')
+                .append('path')
+                .attr('d', "M0,5L10,0L0,-5");
+
+            // create path
             const path = svg
                 .append('g')
                 .selectAll('path')
                 .data(links)
                 .enter().append('path')
                 .attr('fill', 'none')
-                .attr('stroke', '#777')
                 .attr('stroke-width', '2px')
-                .attr('class', 'link');
+                .attr('marker-end', 'url(#end)') // link arrow marker to the path
+                .attr('class', d => {
+                    return 'link '+d.attacker_outcome; // add class 'link loss' or 'link win'
+                });
 
             // Create container for the images
             const svgNodes = svg
@@ -63,10 +81,12 @@ export default class Throns extends Component {
                 .attr('height', 50)
                 .attr('width', 50);
 
+            // nodes
             simulation
                 .nodes(d3.values(nodes))
                 .on('tick', ticked);
 
+            // links
             simulation
                 .force('link')
                 .distance(100) //lineDistance in v3
@@ -90,6 +110,7 @@ export default class Throns extends Component {
             }
 
             function ticked() {
+                // adjust nodes containers position
                 svgNodes
                     .attr('transform', d =>`translate(${d.x},${d.y})`)
                     .call(d3.drag()
@@ -97,13 +118,16 @@ export default class Throns extends Component {
                         .on('drag', dragged)
                         .on('end', dragended));
 
+
+                // Curve paths
                 path
-                    .attr('d', (d, i) => {
+                    .attr('d', (d) => {
+                        const curve = d.battle_number * .5;
                         const dx = d.target.x - d.source.x;
                         const dy = d.target.y - d.source.y;
-                        const dr = Math.sqrt(dx * dx + dy * dy);
+                        const dr = Math.sqrt(dx * dx * curve + dy * dy * curve);
                         return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
-                    })
+                    });
             }
         });
 
