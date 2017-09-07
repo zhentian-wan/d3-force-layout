@@ -15,10 +15,6 @@ class App extends Component {
                     <h2>Game of throns</h2>
                     <Throns width={960} height={600}/>
                 </section>
-                <!-- <section>
-                    <h2>Simple Example</h2>
-                    <SimpleExample width={960} height={600}></SimpleExample>
-                </section> -->
                 <section>
                     <h2>Force Layout intro</h2>
                     <ForceLayoutIntro width={960} height={600}></ForceLayoutIntro>
