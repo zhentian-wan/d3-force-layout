@@ -53,3 +53,10 @@ path.link.loss {
   pointer-events: none;
   font: 12px sans-serif;
 }
+
+.land{
+  fill: #e55555;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
