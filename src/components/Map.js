@@ -19,8 +19,18 @@ class Map extends Component {
         const path = d3.geoPath();
 
         svg.append('path')
-            .datum(topojson.feature(us, us.objects.states))
+            .datum(topojson.feature(us, us.objects.nation))
             .attr('class', 'land')
+            .attr('d', path);
+
+        svg.append('path')
+            .datum(topojson.mesh(us, us.objects.states), (a,b) => a!=b)
+            .attr('class', 'border state')
+            .attr('d', path);
+
+        svg.append('path')
+            .datum(topojson.mesh(us, us.objects.counties), (a,b) => a!=b)
+            .attr('class', 'border county')
             .attr('d', path);
 
     }

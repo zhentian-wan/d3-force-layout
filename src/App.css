@@ -54,8 +54,23 @@ path.link.loss {
   font: 12px sans-serif;
 }
 
+.border {
+  fill: none;
+  stroke: #999;
+}
+
+.county {
+  fill: none;
+  stroke-width: 0.5;
+}
+
+.state {
+  fill: none;
+  stroke: #666;
+}
+
 .land{
-  fill: #e55555;
+  fill: #e5e5e5;
   stroke: white;
   stroke-linecap: round;
   stroke-linejoin: round;
