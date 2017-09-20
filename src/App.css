@@ -71,3 +71,7 @@ path.link.loss {
 .counties{
   fill: none;
 }
+
+.bubble {
+  fill: red;
+}

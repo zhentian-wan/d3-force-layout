@@ -5,12 +5,16 @@ import './App.css';
 
 import ForceLayoutIntro from './components/ForceLayoutIntro';
 import Map from './components/Map';
+import BubbleMap from './components/BubbleMap';
 import Throns from './components/Throns';
 
 class App extends Component {
     render() {
         return (
             <div className="App">
+                <section>
+                    <BubbleMap width={960} height={600}/>
+                </section>
                 <section>
                     <Map width={960} height={600}/>
                 </section>
